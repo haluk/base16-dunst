@@ -4,7 +4,7 @@ import configparser
 import os
 import unittest
 
-from src.util import get_sections_only, append_section
+from src.util import append_section, get_sections_only, load_template
 
 
 class TestConfig(unittest.TestCase):
@@ -38,4 +38,12 @@ class TestConfig(unittest.TestCase):
 
         self.assertTrue(os.path.isfile(self.outconfig))
 
-        # os.remove(self.outconfig)
+        os.remove(self.outconfig)
+
+    def test_can_load_template(self):
+        template = load_template()
+
+        self.assertListEqual(
+            ["framecolor", "separatorcolor", "low", "normal", "critical"],
+            list(template.blocks.keys()),
+        )

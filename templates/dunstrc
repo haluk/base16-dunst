@@ -64,7 +64,7 @@
     frame_width = 3
 
     # Defines color of the frame around the notification window.
-    frame_color = {% block framecolor %} {% endblock framecolor %}
+    frame_color = {% block framecolor %} {{ framecolor }} {% endblock framecolor %}
 
     # Define a color for the separator.
     # possible values are:
@@ -72,7 +72,7 @@
     #  * foreground: use the same color as the foreground;
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
-    separator_color = frame
+    separator_color = {% block separatorcolor %} {{ separatorcolor }} {% endblock separatorcolor %}
 
     # Sort messages by urgency.
     sort = yes
@@ -272,29 +272,35 @@
     # Context menu.
     context = ctrl+shift+period
 
+{% block low %}
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
-    foreground = "#888888"
+    background = {{ lowbackground }}
+    foreground = {{ lowforeground }}
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
+{% endblock low %}
 
+{% block normal %}
 [urgency_normal]
-    background = "#285577"
-    foreground = "#ffffff"
+    background = {{ normalbackground }}
+    foreground = {{ normalforeground }}
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon
+{% endblock normal %}
 
+{% block critical %}
 [urgency_critical]
-    background = "#900000"
-    foreground = "#ffffff"
+    background = {{ criticalbackground }}
+    foreground = {{ criticalforeground }}
     frame_color = "#ff0000"
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
     #icon = /path/to/icon
+{% endblock critical %}
 
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
